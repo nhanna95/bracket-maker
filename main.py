@@ -11,9 +11,9 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.input_win = None  # No external window yet.
-        width = 800
+        width = 1000
         height = 600
-        self.setFixedSize(width, height)
+        self.resize(width, height)
         self.setWindowTitle('Game Bracket')
         layout = QGridLayout()
         self.input_button = QPushButton('Input names')
@@ -108,6 +108,8 @@ class MainWindow(QMainWindow):
             self.buttons[next_placement].setText(self.buttons[index].text())
             if next_placement in self.win_indexes:
                 self.advance_player(next_placement)
+            elif opponent_placements[next_placement] in self.win_indexes:
+                self.advance_player(opponent_placements[next_placement])
 
         opp_index = opponent_placements[index]
         if opp_index in self.win_indexes:
@@ -121,6 +123,8 @@ class MainWindow(QMainWindow):
                 self.advance_player(next_placement)
             elif next_placement in self.win_indexes:
                 self.advance_player(next_placement)
+            elif opponent_placements[next_placement] in self.win_indexes:
+                self.advance_player(opponent_placements[next_placement])
 
     def save_bracket(self, file_name):
         file_filter = 'Text File (*.txt)'
